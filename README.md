@@ -28,7 +28,7 @@ spring.datasource.url=jdbc:mysql://localhost:3306/db001
 spring.datasource.username=root
 spring.datasource.password=12345678
 ```
-~~SpringSecurity+OAuth2.0负责安全管理和登录验证~~<br/>
+* ~~SpringSecurity+OAuth2.0负责安全管理和登录验证~~<br/>
 * 由<img src="./public/mybatis.jpg" width="35px">MyBatisPlus进行数据库操作。
 ### 第三部分 <img src="./public/mysql.jpg" width="50px">MySQL 数据库
 ##### localhost:3306
