@@ -6,7 +6,7 @@
 <img src="./public/maven.jpg" width="35px">Maven进行项目管理，
 <img src="./public/git.jpg" width="35px">Git进行分布式版本控制<br/>
 >注：~~删除线~~ 代表还尚引入的功能，不保证最后一定加入本项目中。
-### 第一部分 <img src="./WhiteVue3/public/favicon.ico" width="50px">Vue3 前端 
+### 第一部分 <img src="./WhiteVue3/public/favicon.ico" width="45px">Vue3 前端 
 ##### localhost:5173
 在<img src="./public/vite.png" width="35px">Vipe脚手架上搭建，由
 <img src="./public/html5.jpg" width="35px">HTML5+
@@ -14,7 +14,7 @@
 <img src="./public/ts.jpg" width="35px">TypeScript(<img src="./public/js.jpg" width="35px">JavaScript)负责脚本控制，<br/>
 使用了<img src="./public/ep.png" width="35px">ElementPlus的UI库，<img src="./public/baidumap.png" width="35px">BaiduMap的API，<br/>
 由Vue-Router进行路由管理，<img src="./public/pinia.png" width="35px">进行状态管理，<br/>
-<img src="./public/axios.png" width="35px">Axios进行异步通信，向后端发送HTTP请求。
+<img src="./public/axios.png" width="50px">Axios进行异步通信，向后端发送HTTP请求。
 ### 第二部分 <img src="./public/springboot.png" width="50px">SpringBoot3 后端 
 ##### localhost:8080
 使用了<img src="./public/java.png" width="35px">Java17的框架SpringBoot3完成IoC和AOP功能，<br/>
@@ -35,7 +35,7 @@ spring.datasource.password=12345678
 ##### localhost:3306
 访问服务器远程MySQL库：`>mysql -h82.157.31.31 -uroot -p`
 >注意：服务器内存较小(我没钱:D)，数据库开发测试请使用本地MySQL
-### 第四部分 <img src="./public/nginx.png" width="35px">Nignx 服务器
+### 第四部分 <img src="./public/ngnix.png" width="45px">Nignx 服务器
 在<img src="./public/linux.jpg" width="35px">Linux服务器上使用<img src="./public/bt.jpg" width="35px">宝塔面板进行部署。<br/>
 使用Nignx进行反向代理/负载均衡。<br/>
 ~~借助Redis分布式缓存和RabbitMQ消息队列优化服务器性能。~~
