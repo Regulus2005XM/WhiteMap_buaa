@@ -1,85 +1,64 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import {ref} from 'vue'
+const activeIndex = ref('1')
+const activeIndex2 = ref('1')
+const handleSelect = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
 </script>
 
+
+<!-- —————————————————————————————————————————————————————————— -->
 <template>
+  <div class="common-layout">
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+  <el-menu
+    :default-active="activeIndex2"
+    class="el-menu-demo"
+    mode="horizontal"
+    background-color="#E8FAFF"
+    text-color="#263238"
+    active-text-color="#29B6F6"
+    :ellipsis="false"
+    :collapse-transition="false"
+    @select="handleSelect"
+  >
+  <el-menu-item index="1"><RouterLink to="/" class="RL"><el-icon>
+    <MapLocation /></el-icon>地图</RouterLink></el-menu-item>
+  <el-menu-item index="2"><RouterLink to="/sq" class="RL"><el-icon>
+    <ChatLineSquare /></el-icon>广场</RouterLink></el-menu-item>
+  <el-menu-item index="5"><RouterLink to="/user" class="RL"><el-icon>
+    <CoffeeCup /></el-icon>我的</RouterLink></el-menu-item>
+  
+  </el-menu>
   </header>
-
-  <RouterView />
+  <main>
+    <div id="mainPart"><RouterView /></div>
+  </main>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+/* 清除默认下划线： */
+a {
+  text-decoration: none;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.router-link-active {
+  text-decoration: none;
 }
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+/* 设置主界面背景颜色和占满高度 */
+#mainPart{
+  background-color: #FDFDFD;
+  height: 100%;
 }
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
+/* 响应式布局 */
+.el-menu-demo{
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.RL{
+  width : 100%;
+  height : 100%
 }
 </style>

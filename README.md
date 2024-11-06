@@ -1,6 +1,6 @@
 # WhiteMap_buaa 北航白泽网
-服务器端口：https://82.157.31.31/ <br/>
-服务器域名：https://baizemap.icu/<br/>
+服务器端口：http://82.157.31.31/ <br/>
+服务器域名：http://baizemap.icu/<br/>
 项目架构：采用B/S浏览器-服务器架构，MVC架构开发<br/>
 技术栈分为四个部分：前端+后端+数据库+服务器<br/>
 <img src="./public/maven.jpg" width="35px">Maven进行项目管理，
