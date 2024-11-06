@@ -10,12 +10,10 @@
 ##### localhost:5173
 * 在<img src="./public/vite.png" width="35px">Vipe脚手架上搭建，<br/>
 * 由<img src="./public/html5.jpg" width="35px">HTML5+<img src="./public/css3.jpg" width="35px">CSS3负责页面展示，<br/>
-<img src="./public/ts.jpg" width="35px">
-* TypeScript(<img src="./public/js.jpg" width="35px">JavaScript)负责脚本控制，<br/>
-使用了<img src="./public/ep.png" width="35px">* ElementPlus的UI库，<img src="./public/baidumap.png" width="35px">BaiduMap的API，<br/>
+* 由<img src="./public/ts.jpg" width="35px">TypeScript(<img src="./public/js.jpg" width="35px">JavaScript)负责脚本控制，<br/>
+* 使用了<img src="./public/ep.png" width="35px">ElementPlus的UI库，<img src="./public/baidumap.png" width="35px">BaiduMap的API，<br/>
 * 由Vue-Router进行路由管理，<img src="./public/pinia.png" width="35px">进行状态管理，<br/>
-<img src="./public/axios.png" width="50px">
-* Axios进行异步通信，向后端发送HTTP请求。
+* <img src="./public/axios.png" width="50px">Axios进行异步通信，向后端发送HTTP请求。
 ### 第二部分 <img src="./public/springboot.png" width="50px">SpringBoot3 后端 
 ##### localhost:8080
 * 使用了<img src="./public/java.png" width="35px">Java17的框架SpringBoot3完成IoC和AOP功能，<br/>

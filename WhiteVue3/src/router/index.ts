@@ -21,12 +21,12 @@ const router = createRouter({
     {
       path: '/pub',
       name: 'pub',
-      component: () => import('../views/Crea.vue')
+      component: () => import('../views/childviews/Crea.vue')
     },
     {
       path: '/our',
       name: 'our',
-      component: () => import('../views/Our.vue')
+      component: () => import('../views/childviews/Our.vue')
     }
   ]
 })
