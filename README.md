@@ -3,15 +3,15 @@
 服务器域名：https://baizemap.icu/<br/>
 项目架构：采用B/S浏览器-服务器架构，MVC架构开发<br/>
 技术栈分为四个部分：前端+后端+数据库+服务器<br/>
-![Maven](./public/maven.jpg)Maven进行项目管理，
-![Git](./public/git.jpg)Git进行分布式版本控制<br/>
+<img src="./public/maven.jpg" width="100px">Maven进行项目管理，
+<img src="./public/git.jpg" width="100px">Git进行分布式版本控制<br/>
 >注：~~删除线~~ 代表还尚引入的功能，不保证最后一定加入本项目中。
-### 第一部分 ![vue](./WhiteVue3/public/favicon.ico)Vue3 前端 
+### 第一部分 <img src="./WhiteVue3/public/favicon.ico" width="100px">Vue3 前端 
 ##### localhost:5173
-在![Vite](./public/vite.png)Vipe脚手架上搭建，由
-![HTML5](./public/html5.jpg)HTML5+
-![CSS3](./public/css3.jpg)CSS3负责页面展示，<br/>
-![TS](./public/ts.jpg)TypeScript(![JS](./public/js.jpg)JavaScript)负责脚本控制，<br/>
+在<img src="./public/vite.png" width="100px">Vipe脚手架上搭建，由
+<img src="./public/html5.jpg" width="100px">HTML5+
+<img src="./public/css3.jpg" width="100px">CSS3负责页面展示，<br/>
+<img src="./public/ts.jpg" width="100px">TypeScript(<img src="./public/js.jpg" width="100px">JavaScript)负责脚本控制，<br/>
 使用了![EP](./public/ep.png)ElementPlus的UI库，![bd](./public/baidumap.png)BaiduMap的API，<br/>
 由Vue-Router进行路由管理，~[pinia](./public/pinia.png)Pinia进行状态管理，<br/>
 ![A](./public/axios.png)Axios进行异步通信，向后端发送HTTP请求。
