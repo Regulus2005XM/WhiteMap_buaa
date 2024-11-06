@@ -6,7 +6,7 @@
 <img src="./public/maven.jpg" width="35px">Maven进行项目管理，
 <img src="./public/git.jpg" width="35px">Git进行分布式版本控制<br/>
 >注：~~删除线~~ 代表还尚引入的功能，不保证最后一定加入本项目中。
-### 第一部分 <img src="./WhiteVue3/public/favicon.ico" width="45px">Vue3 前端 
+### <div color="green">第一部分 <img src="./WhiteVue3/public/favicon.ico" width="45px">Vue3 前端</div> 
 ##### localhost:5173
 在<img src="./public/vite.png" width="35px">Vipe脚手架上搭建，由
 <img src="./public/html5.jpg" width="35px">HTML5+
@@ -35,7 +35,7 @@ spring.datasource.password=12345678
 ##### localhost:3306
 访问服务器远程MySQL库：`>mysql -h82.157.31.31 -uroot -p`
 >注意：服务器内存较小(我没钱:D)，数据库开发测试请使用本地MySQL
-### 第四部分 <img src="./public/ngnix.png" width="45px">Nignx 服务器
+### 第四部分 <img src="./public/ngnix.png" width="65px">Nignx 服务器
 在<img src="./public/linux.jpg" width="35px">Linux服务器上使用<img src="./public/bt.jpg" width="35px">宝塔面板进行部署。<br/>
 使用Nignx进行反向代理/负载均衡。<br/>
 ~~借助Redis分布式缓存和RabbitMQ消息队列优化服务器性能。~~
