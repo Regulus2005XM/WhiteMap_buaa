@@ -1,17 +1,5 @@
 <template>
   <div>  
-    <label>
-      <input type="checkbox" v-model="mapSetting.enableDoubleClickZoom" />
-      是否开启双击缩放？
-    </label>
-    <br />
-    地图类型：
-    <select name="" id="" v-model="type">
-      <option value="BMAP_NORMAL_MAP">常规地图</option>
-      <option value="BMAP_EARTH_MAP">地球模式</option>
-      <option value="BMAP_SATELLITE_MAP">卫星图</option>
-    </select>
-    <br />
     <BMap
       :heading="5"
       :tilt="10"
@@ -21,9 +9,9 @@
       }"
       :zoom="19"
       :minZoom="3"
-      :maxZoom="20"
+      :maxZoom="24"
+      height="78vh"
       :mapType="type"
-      height="50vh"
       :enableAutoResize="mapSetting.enableAutoResize"
       :enableDrgging="mapSetting.enableDragging"
       :enableInertialDragging="mapSetting.enableInertialDragging"
@@ -50,25 +38,26 @@
     <BLocation />
       </BMap>
   </div>
-  <div id="bott" height="14vh">
+  <div class="footer">
     <div class="flex gap-4">
+      <label>
+      <input type="checkbox" v-model="mapSetting.enableDoubleClickZoom" />
+      开启双击缩放
+    </label>
+    <select name="" id="" v-model="type">
+      <option value="BMAP_NORMAL_MAP">常规地图</option>
+      <option value="BMAP_EARTH_MAP">地球模式</option>
+      <option value="BMAP_SATELLITE_MAP">卫星图</option>
+    </select>
+    <br/>
+    <div class="search-container">
+        <el-autocomplete :fetch-suggestions="querySearch"@select="handleSelect"type="text" class="search-input" placeholder="搜索..."/>
+        <button class="search-button"><el-icon><Search/></el-icon>搜索</button>
+    </div>
     <div>
-      <div class="sub-title my-2 text-sm text-gray-600">
-        <el-icon><Search /></el-icon>
-        搜索
-      </div>
-      
-      <el-autocomplete
-        v-model="state1"
-        :fetch-suggestions="querySearch"
-        clearable
-        class="inline-input w-50"
-        placeholder="搜索地点"
-        @select="handleSelect"
-      />
     </div>
     <el-switch v-model="value1" active-text=""
-    inactive-text="显示图标"/><br/>
+    inactive-text="显示图标"/>
     <el-switch v-model="value2" active-text=""
     inactive-text="显示标记文字"/>
   </div>
@@ -145,7 +134,49 @@ onMounted(() => {
 <style>
 #bott{
   width : 98vw;
-
 }
-
+.footer {
+    background-color: white; /* 矩形背景色 */
+    color: black; /* 文字颜色 */
+    padding: 20px; /* 内边距 */
+    border-radius: 10px; /* 圆角 */
+    text-align: center; /* 文本居中 */
+    width: 100%; /* 宽度设置为100% */
+    position: fixed; /* 固定定位 */
+    bottom: 0; /* 持续在底部 */
+    left: 0; /* 左对齐 */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width:94vw;
+    margin:auto;
+}
+.search-input {
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    width:90%;
+}
+.search-button {
+  border-radius: 25px;
+    background-color: #f1441d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    right:0;
+    transition: background-color 0.3s;
+    width:10%;
+}
+.search-button:hover {
+    background-color: #f1441d;
+}
 </style>

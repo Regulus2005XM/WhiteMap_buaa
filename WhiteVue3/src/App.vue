@@ -1,44 +1,39 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import {ref} from 'vue'
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-</script>
-
-
-<!-- —————————————————————————————————————————————————————————— -->
 <template>
   <div class="common-layout">
   <header>
   <el-menu
-    :default-active="activeIndex2"
     class="el-menu-demo"
     mode="horizontal"
-    background-color="#E8FAFF"
-    text-color="#263238"
-    active-text-color="#29B6F6"
+    background-color="white"
+    text-color="#bdaead"
+    active-text-color="#f33b1f"
     :ellipsis="false"
     :collapse-transition="false"
     @select="handleSelect"
   >
   <el-menu-item index="1"><RouterLink to="/" class="RL"><el-icon>
-    <MapLocation /></el-icon>地图</RouterLink></el-menu-item>
+    <MapLocation /></el-icon><b>地图</b></RouterLink></el-menu-item>
   <el-menu-item index="2"><RouterLink to="/sq" class="RL"><el-icon>
-    <ChatLineSquare /></el-icon>广场</RouterLink></el-menu-item>
-  <el-menu-item index="5"><RouterLink to="/user" class="RL"><el-icon>
-    <CoffeeCup /></el-icon>我的</RouterLink></el-menu-item>
-  
+    <ChatLineSquare /></el-icon><b>广场</b></RouterLink></el-menu-item>
+  <el-menu-item index="3"><RouterLink to="/user" class="RL"><el-icon>
+    <CoffeeCup /></el-icon><b>我的</b></RouterLink></el-menu-item>
   </el-menu>
   </header>
   <main>
-    <div id="mainPart"><RouterView /></div>
+  <div id="mainPart"><RouterView /></div>
   </main>
   </div>
 </template>
-
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<script setup lang="ts">
+//路由导航栏
+import { RouterLink, RouterView } from 'vue-router'
+import {ref} from 'vue'
+const handleSelect = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+</script>
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <style scoped>
 /* 清除默认下划线： */
 a {
@@ -49,7 +44,7 @@ a {
 }
 /* 设置主界面背景颜色和占满高度 */
 #mainPart{
-  background-color: #FDFDFD;
+  background-color: white;
   height: 100%;
 }
 /* 响应式布局 */

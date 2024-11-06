@@ -75,24 +75,15 @@ const tags = ref<TagsItem[]>([
 
 <template>
   <div>
-  <div class="sub-title my-2 text-sm text-gray-600">
-        <el-icon><Search /></el-icon>
-        搜索
-      </div>
-      
-      <el-autocomplete
-        v-model="state1"
-        :fetch-suggestions="querySearch"
-        clearable
-        class="inline-input w-50"
-        placeholder="输入内容"
-        @select="handleSelect"
-      />
+    <div class="search-container">
+        <el-autocomplete :fetch-suggestions="querySearch"@select="handleSelect"type="text" class="search-input" placeholder="搜索..."/>
+        <button class="search-button"><el-icon><Search/></el-icon>搜索</button>
     </div>
-    <div>最近热点：</div>
-    <el-carousel :interval="4000" type="card" height="20vh">
+  </div>
+  <!-- 展示框 -->
+  <el-carousel :interval="4000" type="card">
     <el-carousel-item v-for="(image,index) in images" :key="index" style="margin:10px">
-      <img :src="image" class="image-item"/>
+      <img :src="image" class="image-item" height="auto"/>
     </el-carousel-item>
   </el-carousel>
   
@@ -136,17 +127,8 @@ const tags = ref<TagsItem[]>([
 .el-carousel__item h3 {
   color: #475669;
   opacity: 0.75;
-  line-height: 200px;
   margin: 0;
   text-align: center;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
 }
 
 .Mycard{
@@ -155,5 +137,37 @@ const tags = ref<TagsItem[]>([
 #sqs{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px,1fr));
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width:94vw;
+    margin:auto;
+}
+.search-input {
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    width:90%;
+}
+.search-button {
+  border-radius: 25px;
+    background-color: #f1441d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    right:0;
+    transition: background-color 0.3s;
+    width:10%;
+}
+.search-button:hover {
+    background-color: #f1441d;
 }
 </style>
