@@ -3,7 +3,7 @@
 服务器域名：https://baizemap.icu/<br/>
 项目架构：采用B/S浏览器-服务器架构，MVC架构开发<br/>
 技术栈分为四个部分：前端+后端+数据库+服务器<br/>
-<img src="./public/maven.jpg" width="100px">Maven进行项目管理，
+<img src="./public/maven.jpg" width="25px">Maven进行项目管理，
 <img src="./public/git.jpg" width="100px">Git进行分布式版本控制<br/>
 >注：~~删除线~~ 代表还尚引入的功能，不保证最后一定加入本项目中。
 ### 第一部分 <img src="./WhiteVue3/public/favicon.ico" width="100px">Vue3 前端 
