@@ -17,6 +17,7 @@
     <ChatLineSquare /></el-icon><b>广场</b></RouterLink></el-menu-item>
   <el-menu-item index="3"><RouterLink to="/user" class="RL"><el-icon>
     <CoffeeCup /></el-icon><b>我的</b></RouterLink></el-menu-item>
+  <el-menu-item index="4"><a href="https://github.com/Regulus2005XM/WhiteMap_buaa"><i class='bx bxl-github' id="ii"></i></a></el-menu-item>
   </el-menu>
   </header>
   <main>
@@ -50,10 +51,18 @@ a {
 /* 响应式布局 */
 .el-menu-demo{
     display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 5fr 5fr 5fr 1fr;
 }
 .RL{
   width : 100%;
   height : 100%
+}
+#ii{
+  font-size: 24px;
+}
+.el-menu-item a {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+    height: 100%; /* 确保链接的高度与菜单项一致 */
 }
 </style>

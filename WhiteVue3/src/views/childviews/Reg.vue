@@ -1,70 +1,57 @@
 <template>
     <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
-      <el-form-item label="标题">
-        <el-input v-model="form.name" />
+      <!-- 1 -->
+      <el-form-item label="用户名" required>
+      <el-input v-model="form.name" 
+      maxlength="10"
+      placeholder="输入用户名"
+      show-word-limit
+      type="text"/>
       </el-form-item>
-      <el-form-item label="帖子类型">
-        <el-select v-model="form.region" placeholder="填入你的贴子类型">
-          <el-option label="新建一个地点" value="shanghai" />
-          <el-option label="评价已有地点" value="beijing" />
-        </el-select>
+      <!-- 2 -->
+      <el-form-item label="密码" required>
+      <el-input v-model="form.password1" 
+      maxlength="25"
+      placeholder="输入密码"
+      type="password"
+      show-password
+      show-word-limit/>
       </el-form-item>
-      <el-form-item label="活动时间">
-        <el-col :span="11">
-          <el-date-picker
-            v-model="form.date1"
-            type="date"
-            placeholder="选择日期"
-            style="width: 100%"
-          />
-        </el-col>
-        <el-col :span="4" class="text-center">
-          <span class="text-gray-500">-</span>
-        </el-col>
-        <el-col :span="11">
-          <el-time-picker
-            v-model="form.date2"
-            placeholder="选择时间"
-            style="width: 100%"
-          />
-        </el-col>
+      <!-- 3 -->
+      <el-form-item label="确认密码" required>
+      <el-input v-model="form.password2" 
+      maxlength="30"
+      placeholder="确认密码"
+      type="password"
+      show-password
+      show-word-limit/>
       </el-form-item>
-      <el-form-item label="不公开">
-        <el-switch v-model="form.delivery" />
+      <!-- 4 -->
+      <el-form-item label="出生日期">
+      <el-col :span="11">
+        <el-date-picker
+        v-model="form.date"
+        type="date"
+        placeholder="选择日期"
+        style="width: 100%"/>
+      </el-col>
+      <!-- 5 -->
       </el-form-item>
-      <el-form-item label="发布到板块">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox value="Online activities" name="type">
-            生活板块
-          </el-checkbox>
-          <el-checkbox value="Promotion activities" name="type">
-            学习板块
-          </el-checkbox>
-          <el-checkbox value="Offline activities" name="type">
-            运动板块
-          </el-checkbox>
-          <el-checkbox value="Simple brand exposure" name="type">
-            艺术板块
-          </el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="校区">
-        <el-radio-group v-model="form.resource">
-          <el-radio value="Sponsor">学院路校区</el-radio>
-          <el-radio value="Venue">沙河校区</el-radio>
+      <el-form-item label="性别">
+        <el-radio-group v-model="form.sex">
+          <el-radio value="male">男</el-radio>
+          <el-radio value="female">女</el-radio>
+          <el-radio value="other">其他</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="帖子内容">
+      <!-- 6 -->
+      <el-form-item label="个人简介">
         <el-input v-model="form.desc" type="textarea" />
       </el-form-item>
-      <el-form-item label="给地点打分">
-        <el-rate v-model="star" allow-half />
-        </el-form-item>
-        
       <el-form-item>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <el-button type="primary" @click="onSubmit">发布</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="submitReg">注册</el-button>
+        <el-button type="success" @click="gotolog()">已有账号，立刻登录</el-button>
       </el-form-item>
   </el-form>
   <el-form class="myform">
@@ -100,7 +87,7 @@
       </div>
     </template>
   </el-upload>
-  <el-dialog v-model="dialogVisible">
+  <el-dialog v-model="dialogVisible">上传头像
     <img w-full :src="dialogImageUrl" alt="Preview Image" />
   </el-dialog>
     </el-form-item>
@@ -108,24 +95,57 @@
   </template>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
-  <script lang="ts" setup>
-  import { reactive,ref } from 'vue'
-  var star = ref(3.5);
-  // do not use same name with ref
-  const form = reactive({
-    name: '',
-    region: '',
-    date1: '',
-    date2: '',
-    delivery: false,
-    type: [],
-    resource: '',
-    desc: '向大家推荐',
+<script lang="ts" setup>
+import { reactive,ref } from 'vue'
+import axios from 'axios'
+var star = ref(3.5);
+const form = reactive({
+  name: '',
+  password1:'',
+  password2:'',
+  date: '2005-1-1',
+  sex: 'other',
+  delivery: false,
+  type: [],
+  desc: '大家好，我是',
   })
-  
-  const onSubmit = () => {
-    console.log('submit!')
+import { ElMessageBox } from 'element-plus'
+const submitReg = async () => {
+  ElMessageBox.confirm(
+    '请确定信息填写无误',
+    '是否注册',
+    {
+      confirmButtonText: '注册',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(async () => {
+      ElMessage({
+        type: 'success',
+        message: '成功注册',
+      })
+    
+    
+  try {
+    const jsonString = JSON.stringify(form);//生成一个请求(JSON字符串)
+    console.log(jsonString);
+    const response = await axios.post(//向后端地址发送请求，并接收数据
+    "http://localhost:8080/register/reg01",//地址
+    jsonString,{headers:{'Content-Type':'application/json'}});
+    //请求的格式设置
+    console.log('响应:',response.data);
+  }catch(error){
+    console.error('发送数据时出错',error);
   }
+})
+  .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '取消注册',
+      })
+    })
+}
   import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 
@@ -151,7 +171,11 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   return true
 }
 import { Delete, Download, ZoomIn } from '@element-plus/icons-vue'
-
+import {useRouter} from 'vue-router'
+const router = useRouter()
+function gotolog(){
+    router.push('/log');
+}
 import type { UploadFile } from 'element-plus'
 
 const dialogImageUrl = ref('')

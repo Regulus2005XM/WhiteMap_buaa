@@ -125,16 +125,18 @@ const tags = ref<TagsItem[]>([
         <button class="search-button"><el-icon><Search/></el-icon>搜索</button>
     </div>
   </div>
+  <van-notice-bar
+  left-icon="volume-o"
+  text="希望大家积极创建新地点&#128541;，不要恶意刷帖，和谐讨论，不要攻击他人，活跃用户之后可能会有奖励哦"
+/>
   <!-- 展示框 -->
-  <el-carousel :interval="4000" type="card">
+  <el-carousel :interval="4000" type="card" height="200px">
     <el-carousel-item v-for="(image,index) in images" :key="index" style="margin:10px">
-      <img :src="image" class="image-item" height="auto"/>
+      <img :src="image" class="image-item"/>
     </el-carousel-item>
   </el-carousel>
   <!-- 新建按钮 -->
   <div class="create-button" @click="gotocreate()">+</div>
-
-
   <div id="sqs">
   
 <span v-for="(Tie, index) in Ties" :key="index" class="Mycard">
@@ -159,9 +161,6 @@ const tags = ref<TagsItem[]>([
   </el-card>
 </span>
 </div>
-
-
-
 <el-backtop :right="100" :bottom="100" />
 </template>
 
@@ -215,7 +214,7 @@ const tags = ref<TagsItem[]>([
 }
 .create-button {
     position: fixed; /* 固定位置 */
-    top: 20px; /* 距离顶部20px */
+    bottom: 120px; /* 距离顶部20px */
     right: 20px; /* 距离右侧20px */
     width: 50px; /* 调整按钮宽度 */
     height: 50px; /* 调整按钮高度 */
@@ -229,8 +228,14 @@ const tags = ref<TagsItem[]>([
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
     cursor: pointer; /* 鼠标悬停为手型 */
     transition: background-color 0.3s; /* 背景颜色过渡效果 */
+    z-index: 5;
 }
 .create-button:hover {
     background-color: #ed4845; /* 悬停时按钮的颜色变化 */
+}
+.image-item {
+    max-width: 100%; /* 让图片宽度适应容器 */
+    height: auto; /* 高度自适应，保持纵横比 */
+    object-fit: contain; /* 确保图片完整显示 */
 }
 </style>

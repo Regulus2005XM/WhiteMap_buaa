@@ -24,9 +24,14 @@ const router = createRouter({
       component: () => import('../views/childviews/Crea.vue')
     },
     {
-      path: '/our',
-      name: 'our',
-      component: () => import('../views/childviews/Our.vue')
+      path: '/reg',
+      name: 'reg',
+      component: () => import('../views/childviews/Reg.vue')
+    },
+    {
+      path: '/log',
+      name: 'log',
+      component: () => import('../views/childviews/Log.vue')
     }
   ]
 })

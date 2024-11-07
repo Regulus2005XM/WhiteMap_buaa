@@ -1,4 +1,10 @@
 <template>
+    <el-badge :value="7" class="item" type="warning">
+      <el-button>系统通知</el-button>
+    </el-badge>
+    <el-badge :value="2" class="item" color="green">
+      <el-button>关注的人</el-button>
+    </el-badge>
     <el-badge :value="12" class="item">
       <el-button>评论</el-button>
     </el-badge>
@@ -8,12 +14,7 @@
     <el-badge :value="1" class="item" type="primary">
       <el-button>@我</el-button>
     </el-badge>
-    <el-badge :value="7" class="item" type="warning">
-      <el-button>系统通知</el-button>
-    </el-badge>
-    <el-badge :value="2" class="item" color="green">
-      <el-button>关注的人</el-button>
-    </el-badge>
+    
     
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
     <el-tab-pane label="主页" name="first">
@@ -21,10 +22,11 @@
       <el-result
         icon="error"
         title="您还未注册"
-        sub-title="测试阶段，注册功能尚未开启"
+        sub-title="注册暂时无需手机号验证等"
       >
         <template #extra>
-          <el-button type="primary">关注后续消息</el-button>
+          <el-button color="#626aef" @click="gotoreg()">现在注册</el-button>
+          <el-button type="primary" @click="gotolog()">已有账号，立刻登录</el-button>
         </template>
       </el-result>
     </el-col>
@@ -45,22 +47,28 @@ const activeName = ref('first')
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
+import {useRouter} from 'vue-router'
+const router = useRouter()
+function gotoreg(){
+    router.push('/reg');
+}
+function gotolog(){
+    router.push('/log');
+}
   </script>
   
-  <style scoped>
-  .demo-tabs > .el-tabs__content {
+<style scoped>
+.demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;
   font-weight: 600;
 }
-  .item {
+.item {
     margin-top: 10px;
     margin-right: 30px;
-  }
-  
-  .el-dropdown {
+}
+.el-dropdown {
     margin-top: 1.1rem;
-  }
-  </style>
-  
+}
+</style>

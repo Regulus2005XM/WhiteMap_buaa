@@ -1,5 +1,6 @@
 <template>
-  <div>  
+  <div class="container1">  
+    <div>
     <BMap
       :heading="5"
       :tilt="10"
@@ -7,10 +8,10 @@
         lng: 116.355313,
         lat: 39.986771
       }"
+      height="400px"
       :zoom="19"
       :minZoom="3"
       :maxZoom="24"
-      height="78vh"
       :mapType="type"
       :enableAutoResize="mapSetting.enableAutoResize"
       :enableDrgging="mapSetting.enableDragging"
@@ -22,48 +23,38 @@
       :enablePinchToZoom="mapSetting.enablePinchToZoom"
       :enableTraffic="mapSetting.enableTraffic"
     >
-    <BMarker :visible="value1" :position="{ lng: 116.355313,lat: 39.986771 }" icon="red1" />
-    <BLabel :visible="value2"
-      :content="bz"
-      :position="{ lng: 116.355313,lat: 39.986771 }"
-      :style="{
-        color: '#fff',
-        backgroundColor: '#f90',
-        border: 'none',
-        borderRadius: '3px',
-        padding: '5px 10px',
-        fontSize: '16px'
-      }"
-    />
-    <BLocation />
-      </BMap>
-  </div>
-  <div class="footer">
-    <div class="flex gap-4">
+      <BMarker :visible="value1" :position="{ lng: 116.355313,lat: 39.986771 }" icon="red1" />
+      <BLabel :visible="value2"  :content="bz":position="{ lng: 116.355313,lat: 39.986771 }"
+      :style="{color: '#fff', backgroundColor: '#f90',border: 'none',
+        borderRadius: '3px',padding: '5px 10px',fontSize: '16px'}"/>
+      <BLocation />
+    </BMap>
+    </div>
+  
+    <div class="footer">
+      <div class="flex gap-4">
       <label>
       <input type="checkbox" v-model="mapSetting.enableDoubleClickZoom" />
       开启双击缩放
-    </label>
-    <select name="" id="" v-model="type">
+      </label>
+      <select name="" id="" v-model="type">
       <option value="BMAP_NORMAL_MAP">常规地图</option>
       <option value="BMAP_EARTH_MAP">地球模式</option>
       <option value="BMAP_SATELLITE_MAP">卫星图</option>
-    </select>
-    <br/>
-    <div class="search-container">
+      </select>
+      <br/>
+      <div class="search-container">
         <el-autocomplete :fetch-suggestions="querySearch"@select="handleSelect"type="text" class="search-input" placeholder="搜索..."/>
         <button class="search-button"><el-icon><Search/></el-icon>搜索</button>
+      </div>
+      <el-switch v-model="value1" active-text="显示图标&nbsp;&nbsp;&nbsp;"inactive-text=""/>
+      <el-switch v-model="value2" active-text="显示标记文字"inactive-text=""/>
+      </div>
     </div>
-    <div>
-    </div>
-    <el-switch v-model="value1" active-text=""
-    inactive-text="显示图标"/>
-    <el-switch v-model="value2" active-text=""
-    inactive-text="显示标记文字"/>
-  </div>
   </div>
 </template>
-
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <script setup lang="ts">
   import { ref } from 'vue'
   import type { MapType, MapProps } from 'vue3-baidu-map-gl';
@@ -130,8 +121,10 @@ onMounted(() => {
   restaurants.value = loadAll()
 })
 </script>
-
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <style>
+
 #bott{
   width : 98vw;
 }
@@ -154,15 +147,14 @@ onMounted(() => {
     border-radius: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width:94vw;
-    margin:auto;
+    margin:30px;
 }
 .search-input {
     border: none;
     padding: 10px 15px;
     font-size: 16px;
     outline: none;
-    width:85%;
+    width:75%;
 }
 .search-button {
   border-radius: 25px;
@@ -174,7 +166,7 @@ onMounted(() => {
     cursor: pointer;
     right:0;
     transition: background-color 0.3s;
-    width:100px;
+    width:150px;
 }
 .search-button:hover {
     background-color: #f1441d;
