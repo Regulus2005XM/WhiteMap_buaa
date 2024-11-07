@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="form" label-width="auto" style="max-width: 600px">
+    <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
       <el-form-item label="标题">
         <el-input v-model="form.name" />
       </el-form-item>
@@ -60,26 +60,54 @@
       <el-form-item label="给地点打分">
         <el-rate v-model="star" allow-half />
         </el-form-item>
-        <el-form-item label="上传图片">
-        <el-upload
-    class="avatar-uploader"
-    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-    :show-file-list="false"
-    :on-success="handleAvatarSuccess"
-    :before-upload="beforeAvatarUpload"
-  >
-    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-    <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-  </el-upload>
-</el-form-item>
+        
       <el-form-item>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <el-button type="primary" @click="onSubmit">发布</el-button>
         <el-button>取消</el-button>
       </el-form-item>
-    </el-form>
+  </el-form>
+  <el-form class="myform">
+    <el-form-item label="上传图片">
+      <el-upload action="#" list-type="picture-card" :auto-upload="false">
+    <el-icon><Plus /></el-icon>
+
+    <template #file="{ file }">
+      <div>
+        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+        <span class="el-upload-list__item-actions">
+          <span
+            class="el-upload-list__item-preview"
+            @click="handlePictureCardPreview(file)"
+          >
+            <el-icon><zoom-in /></el-icon>
+          </span>
+          <span
+            v-if="!disabled"
+            class="el-upload-list__item-delete"
+            @click="handleDownload(file)"
+          >
+            <el-icon><Download /></el-icon>
+          </span>
+          <span
+            v-if="!disabled"
+            class="el-upload-list__item-delete"
+            @click="handleRemove(file)"
+          >
+            <el-icon><Delete /></el-icon>
+          </span>
+        </span>
+      </div>
+    </template>
+  </el-upload>
+  <el-dialog v-model="dialogVisible">
+    <img w-full :src="dialogImageUrl" alt="Preview Image" />
+  </el-dialog>
+    </el-form-item>
+  </el-form>
   </template>
-  
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
   <script lang="ts" setup>
   import { reactive,ref } from 'vue'
   var star = ref(3.5);
@@ -122,17 +150,44 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   }
   return true
 }
-  </script>
+import { Delete, Download, ZoomIn } from '@element-plus/icons-vue'
 
+import type { UploadFile } from 'element-plus'
+
+const dialogImageUrl = ref('')
+const dialogVisible = ref(false)
+const disabled = ref(false)
+
+const handleRemove = (file: UploadFile) => {
+  console.log(file)
+}
+
+const handlePictureCardPreview = (file: UploadFile) => {
+  dialogImageUrl.value = file.url!
+  dialogVisible.value = true
+}
+
+const handleDownload = (file: UploadFile) => {
+  console.log(file)
+}
+</script>
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+ <!-- ———————————————————————————————————————————————————————————————————————— -->
 <style scoped>
+.myform {
+    background-color: white; /* 矩形背景色 */
+    color: black; /* 文字颜色 */
+    padding: 20px; /* 内边距 */
+    border-radius: 10px; /* 圆角 */
+    max-width: 600px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    margin: 20px;
+}
 .avatar-uploader .avatar {
   width: 178px;
   height: 178px;
   display: block;
 }
-</style>
-
-<style>
 .avatar-uploader .el-upload {
   border: 1px dashed var(--el-border-color);
   border-radius: 6px;
@@ -141,16 +196,17 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   overflow: hidden;
   transition: var(--el-transition-duration-fast);
 }
-
 .avatar-uploader .el-upload:hover {
   border-color: var(--el-color-primary);
 }
-
 .el-icon.avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
   width: 178px;
   height: 178px;
   text-align: center;
+}
+.avatar-uploader-icon {
+  border-top: 2px dashed var(--el-border-color);
 }
 </style>

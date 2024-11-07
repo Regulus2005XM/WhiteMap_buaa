@@ -6,6 +6,11 @@ interface RestaurantItem {
   value: string
   link: string
 }
+import {useRouter} from 'vue-router'
+const router = useRouter()
+function gotocreate(){
+    router.push('/pub');
+}
 var Ties = [{
   name:"匿名用户",
   title:"东区食堂新增美食",
@@ -16,6 +21,46 @@ var Ties = [{
   title:"羽毛球场求搭子",
   star:"4.5",
   context:"有没有人来打羽毛球啊，求求"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
+},{
+  name:"匿名用户",
+  title:"东区食堂新增美食",
+  star:"3.5",
+  context:"好吃，爱吃"
 }]
 var starvalue = ref(4.5)
 const state1 = ref('')
@@ -86,7 +131,9 @@ const tags = ref<TagsItem[]>([
       <img :src="image" class="image-item" height="auto"/>
     </el-carousel-item>
   </el-carousel>
-  
+  <!-- 新建按钮 -->
+  <div class="create-button" @click="gotocreate()">+</div>
+
 
   <div id="sqs">
   
@@ -119,11 +166,7 @@ const tags = ref<TagsItem[]>([
 </template>
 
 <style scoped>
-.image-item {
-    max-width: 100%; /* 适应容器宽度 */
-    height: auto;    /* 保持纵横比 */
-    object-fit: contain; /* 使图片完全显示，保持比例，空白部分用背景色填充 */
-}
+
 .el-carousel__item h3 {
   color: #475669;
   opacity: 0.75;
@@ -153,7 +196,7 @@ const tags = ref<TagsItem[]>([
     padding: 10px 15px;
     font-size: 16px;
     outline: none;
-    width:90%;
+    width:85%;
 }
 .search-button {
   border-radius: 25px;
@@ -165,9 +208,29 @@ const tags = ref<TagsItem[]>([
     cursor: pointer;
     right:0;
     transition: background-color 0.3s;
-    width:10%;
+    width:100px;
 }
 .search-button:hover {
     background-color: #f1441d;
+}
+.create-button {
+    position: fixed; /* 固定位置 */
+    top: 20px; /* 距离顶部20px */
+    right: 20px; /* 距离右侧20px */
+    width: 50px; /* 调整按钮宽度 */
+    height: 50px; /* 调整按钮高度 */
+    background-color: #f2cac9; /* 按钮背景色 */
+    color: white; /* 按钮文字颜色 */
+    font-size: 26px; /* 按钮文字大小 */
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    border-radius: 50%; /* 圆形按钮 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    cursor: pointer; /* 鼠标悬停为手型 */
+    transition: background-color 0.3s; /* 背景颜色过渡效果 */
+}
+.create-button:hover {
+    background-color: #ed4845; /* 悬停时按钮的颜色变化 */
 }
 </style>

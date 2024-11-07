@@ -4,8 +4,6 @@ public class TestPOJO {
     private Integer id;
     private String name;
 
-    public TestPOJO() {
-    }
 
     public TestPOJO(String name, Integer id) {
         this.name = name;

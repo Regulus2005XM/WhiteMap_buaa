@@ -162,7 +162,7 @@ onMounted(() => {
     padding: 10px 15px;
     font-size: 16px;
     outline: none;
-    width:90%;
+    width:85%;
 }
 .search-button {
   border-radius: 25px;
@@ -174,7 +174,7 @@ onMounted(() => {
     cursor: pointer;
     right:0;
     transition: background-color 0.3s;
-    width:10%;
+    width:100px;
 }
 .search-button:hover {
     background-color: #f1441d;

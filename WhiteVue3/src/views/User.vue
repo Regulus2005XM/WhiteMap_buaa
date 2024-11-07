@@ -15,9 +15,6 @@
       <el-button>关注的人</el-button>
     </el-badge>
     
-
-
-
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
     <el-tab-pane label="主页" name="first">
         <el-col :sm="12" :lg="6">
