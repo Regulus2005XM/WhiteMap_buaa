@@ -1,7 +1,7 @@
 package com.whitemap.whitespringboot3;
 
-import com.whitemap.whitespringboot3.mapper.TestMapper;
-import com.whitemap.whitespringboot3.pojo.TestPOJO;
+import com.whitemap.whitespringboot3.dao.TestMapper;
+import com.whitemap.whitespringboot3.web.dto.TestPOJO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

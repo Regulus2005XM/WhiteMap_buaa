@@ -8,12 +8,11 @@ import Vant from 'vant';
 import 'element-plus/dist/index.css'
 import 'vant/lib/index.css';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import 'boxicons/css/boxicons.min.css';
 //路由
 import router from './router'
 //地图
 import Vue3BaiduMapGL from 'vue3-baidu-map-gl'
-import 'boxicons/css/boxicons.min.css';
-//下面这句是必要的，不要删
 import baiduMap from 'vue3-baidu-map-gl'
 
 

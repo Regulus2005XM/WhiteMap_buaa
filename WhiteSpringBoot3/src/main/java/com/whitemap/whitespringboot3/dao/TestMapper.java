@@ -1,6 +1,6 @@
-package com.whitemap.whitespringboot3.mapper;
+package com.whitemap.whitespringboot3.dao;
 
-import com.whitemap.whitespringboot3.pojo.TestPOJO;
+import com.whitemap.whitespringboot3.web.dto.TestPOJO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
