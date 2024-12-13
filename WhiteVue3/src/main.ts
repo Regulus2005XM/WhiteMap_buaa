@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from "./App.vue"
 //状态管理
 import { createPinia } from 'pinia'
 //UI
