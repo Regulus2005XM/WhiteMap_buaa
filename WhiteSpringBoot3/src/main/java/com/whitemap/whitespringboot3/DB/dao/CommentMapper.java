@@ -1,6 +1,6 @@
 package com.whitemap.whitespringboot3.DB.dao;
 
-import com.whitemap.whitespringboot3.pojo.comments.CommentIndexPOJO;
+import com.whitemap.whitespringboot3.DB.pojo.comments.CommentIndexPOJO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

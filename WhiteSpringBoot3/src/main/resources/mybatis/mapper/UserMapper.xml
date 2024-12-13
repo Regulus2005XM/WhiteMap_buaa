@@ -9,3 +9,4 @@
         <result property="dateCreated" column="date_created"/>
         <result property="birthday" column="birthday"/>
     </resultMap>
+</mapper>
