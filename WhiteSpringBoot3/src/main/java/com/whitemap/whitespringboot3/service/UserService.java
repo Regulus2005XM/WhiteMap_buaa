@@ -1,8 +1,8 @@
 package com.whitemap.whitespringboot3.service;
 
-import com.whitemap.whitespringboot3.dao.UserDAO;
-import com.whitemap.whitespringboot3.pojo.UserPOJO;
-import com.whitemap.whitespringboot3.pojo.dto.RegisterDTO;
+import com.whitemap.whitespringboot3.DB.dao.UserDAO;
+import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
+import com.whitemap.whitespringboot3.web.dto.RegisterDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.whitemap.whitespringboot3.service;
 
-import com.whitemap.whitespringboot3.pojo.UserPOJO;
-import com.whitemap.whitespringboot3.pojo.dto.RegisterDTO;
+import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
+import com.whitemap.whitespringboot3.web.dto.RegisterDTO;
 
 public interface IUserService {
     /**
