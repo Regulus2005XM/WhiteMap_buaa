@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd//mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemap.whitespringboot3.mapper.CommentMapper">
+    <select id="getRoots" resultType="com.whitemap.whitespringboot3.pojo.comments.CommentIndexPOJO">
+        select * from db001.comment_index
+        where obj_id = #{objId} and obj_type = #{objType} and attrs in
+        <foreach item="item" index="index" collection="attrs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and root = 0 and state = 0
+        order by like_count desc limit #{offset} ,#{limit}
+    </select>
+    <select id="getReplies" resultType="com.whitemap.whitespringboot3.pojo.comments.CommentIndexPOJO">
+        select * from db001.comment_index
+        where obj_id = #{objId} and obj_type = #{objType} and root = #{root} and attrs in
+        <foreach item="item" index="index" collection="attrs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and state = 0 order by like_count desc limit #{offset} ,#{limit}
+    </select>
+    <select id="getRepliesByTime" resultType="com.whitemap.whitespringboot3.pojo.comments.CommentIndexPOJO">
+        select * from db001.comment_index
+        where obj_id = #{objId} and obj_type = #{objType} and root = #{root} and attrs in
+        <foreach item="item" index="index" collection="attrs" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and state = 0 limit #{offset} ,#{limit}
+    </select>
+</mapper>
