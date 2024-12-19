@@ -1,18 +1,18 @@
-package com.whitemap.whitespringboot3.web.dto;
+package com.whitemap.whitespringboot3.web.dto.User;
 
 public class RegisterDTO {
-    private String username;
+    private String account;
     private String password;
     private String email;
 
-    public RegisterDTO(String username, String password, String email) {
-        this.username = username;
+    public RegisterDTO(String account, String password, String email) {
+        this.account = account;
         this.password = password;
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAccount() {
+        return account;
     }
 
     public String getPassword() {
