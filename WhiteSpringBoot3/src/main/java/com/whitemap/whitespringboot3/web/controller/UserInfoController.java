@@ -5,6 +5,7 @@ import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
 import com.whitemap.whitespringboot3.service.IUserService;
 import com.whitemap.whitespringboot3.util.ImageUtil;
 import com.whitemap.whitespringboot3.util.TimeUtil;
+import com.whitemap.whitespringboot3.util.UserInfoValidator;
 import com.whitemap.whitespringboot3.web.dto.User.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,9 @@ public class UserInfoController {
             //时间校验
             if(TimeUtil.getSecondsSince(pojo.getLastNameChange()) < nameChangeGap)
                 return ResponseMessage.info(null,"Name change requests are too frequent", HttpStatus.BAD_REQUEST);
+            //格式校验
+            if(!UserInfoValidator.isValidUsername(dto.getUsername()))
+                return ResponseMessage.info(null,"Invalid username", HttpStatus.BAD_REQUEST);
             //数据库校验
             if(userService.accountExists(dto.getUsername()))
                 return ResponseMessage.info(null,"Username already exists", HttpStatus.BAD_REQUEST);

@@ -4,7 +4,7 @@ import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
 import com.whitemap.whitespringboot3.service.IUserService;
 import com.whitemap.whitespringboot3.DB.pojo.ResponseMessage;
 import com.whitemap.whitespringboot3.util.PasswordHashUtil;
-import com.whitemap.whitespringboot3.util.UserRegistrationValidator;
+import com.whitemap.whitespringboot3.util.UserInfoValidator;
 import com.whitemap.whitespringboot3.web.dto.User.LoginDTO;
 import com.whitemap.whitespringboot3.web.dto.User.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,11 @@ public class RegisterController{
     @PostMapping("/register")
     public ResponseMessage<UserPOJO> register(@RequestBody RegisterDTO dto){
         //格式校验
-        if(!UserRegistrationValidator.isValidAccount(dto.getAccount()))
+        if(!UserInfoValidator.isValidAccount(dto.getAccount()))
             return ResponseMessage.info(null,"Invalid Account", HttpStatus.BAD_REQUEST);
-        if(!UserRegistrationValidator.isValidPassword(dto.getPassword()))
+        if(!UserInfoValidator.isValidPassword(dto.getPassword()))
             return ResponseMessage.info(null,"Invalid Password", HttpStatus.BAD_REQUEST);
-        if(!UserRegistrationValidator.isValidEmail(dto.getEmail()))
+        if(!UserInfoValidator.isValidEmail(dto.getEmail()))
             return ResponseMessage.info(null,"Invalid Email", HttpStatus.BAD_REQUEST);
         //数据库校验
         if(userService.get(dto.getAccount()) != null)
