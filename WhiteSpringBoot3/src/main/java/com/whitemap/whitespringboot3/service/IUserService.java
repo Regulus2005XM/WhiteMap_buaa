@@ -1,7 +1,9 @@
 package com.whitemap.whitespringboot3.service;
 
 import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
-import com.whitemap.whitespringboot3.web.dto.RegisterDTO;
+import com.whitemap.whitespringboot3.web.dto.User.RegisterDTO;
+
+import java.util.Optional;
 
 public interface IUserService {
     /**
@@ -12,5 +14,11 @@ public interface IUserService {
      */
     UserPOJO add(RegisterDTO dto);
 
-    UserPOJO get(String userName);
+    UserPOJO get(String account);
+
+    UserPOJO get(Integer id);
+
+    Boolean accountExists(String account);
+
+    void save(UserPOJO pojo);
 }

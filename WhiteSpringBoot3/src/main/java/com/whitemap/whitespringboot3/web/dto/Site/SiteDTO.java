@@ -1,14 +1,16 @@
-package com.whitemap.whitespringboot3.web.dto;
+package com.whitemap.whitespringboot3.web.dto.Site;
 
 public class SiteDTO {
     private String siteName;
     private Double x;
     private Double y;
+    private Integer userId;
 
-    public SiteDTO(String siteName, Double x, Double y) {
+    public SiteDTO(String siteName, Double x, Double y, Integer userId) {
         this.siteName = siteName;
         this.x = x;
         this.y = y;
+        this.userId = userId;
     }
 
     public String getSiteName() {
@@ -33,6 +35,14 @@ public class SiteDTO {
 
     public void setY(Double y) {
         this.y = y;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

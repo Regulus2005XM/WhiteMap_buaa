@@ -1,4 +1,4 @@
-package com.whitemap.whitespringboot3.web.dto;
+package com.whitemap.whitespringboot3.web.dto.Site;
 
 public class SiteQueryDTO {
     private Double x;

@@ -3,7 +3,7 @@ package com.whitemap.whitespringboot3.service;
 import com.whitemap.whitespringboot3.DB.dao.SiteDAO;
 import com.whitemap.whitespringboot3.DB.dao.SiteMapper;
 import com.whitemap.whitespringboot3.DB.pojo.SitePOJO;
-import com.whitemap.whitespringboot3.web.dto.SiteDTO;
+import com.whitemap.whitespringboot3.web.dto.Site.SiteDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +33,10 @@ public class SiteService implements ISiteService {
     @Override
     public List<SitePOJO> query(Double x, Double y, Double range) {
         return siteMapper.findByRange(x-range,x+range,y-range,y+range);
+    }
+
+    @Override
+    public SitePOJO get(Integer id) {
+        return siteDAO.findById(id).orElseThrow();
     }
 }
