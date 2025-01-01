@@ -1,12 +1,11 @@
 package com.whitemap.whitespringboot3;
 
-import com.whitemap.whitespringboot3.DB.dao.CommentMapper;
+import com.whitemap.whitespringboot3.DB.mapper.CommentMapper;
 import com.whitemap.whitespringboot3.DB.pojo.comments.CommentIndexPOJO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.whitemap.whitespringboot3.DB.dao;
+package com.whitemap.whitespringboot3.DB.mapper;
 
 import com.whitemap.whitespringboot3.DB.pojo.SitePOJO;
 import org.apache.ibatis.annotations.Mapper;

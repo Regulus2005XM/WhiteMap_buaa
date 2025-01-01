@@ -1,7 +1,8 @@
-package com.whitemap.whitespringboot3.service;
+package com.whitemap.whitespringboot3.service.impl;
 
 import com.whitemap.whitespringboot3.DB.dao.UserDAO;
 import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
+import com.whitemap.whitespringboot3.service.IUserService;
 import com.whitemap.whitespringboot3.util.PasswordHashUtil;
 import com.whitemap.whitespringboot3.util.TimeUtil;
 import com.whitemap.whitespringboot3.web.dto.User.RegisterDTO;

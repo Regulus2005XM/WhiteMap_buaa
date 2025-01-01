@@ -1,11 +1,12 @@
-package com.whitemap.whitespringboot3.service;
+package com.whitemap.whitespringboot3.service.impl;
 
 import com.whitemap.whitespringboot3.Common.SubjectType;
 import com.whitemap.whitespringboot3.DB.dao.CommentContentDAO;
-import com.whitemap.whitespringboot3.DB.dao.CommentMapper;
+import com.whitemap.whitespringboot3.DB.mapper.CommentMapper;
 import com.whitemap.whitespringboot3.DB.pojo.comments.CommentContentPOJO;
 import com.whitemap.whitespringboot3.DB.pojo.comments.CommentIndexPOJO;
-import com.whitemap.whitespringboot3.entities.Comment;
+import com.whitemap.whitespringboot3.entity.Comment;
+import com.whitemap.whitespringboot3.service.ICommentService;
 import com.whitemap.whitespringboot3.web.dto.Comment.SendCommentDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

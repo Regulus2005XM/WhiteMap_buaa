@@ -15,7 +15,7 @@
       <el-button>@我</el-button>
     </el-badge>
     
-    
+    <div v-if="!isLoggedIn">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
     <el-tab-pane label="主页" name="first">
         <el-col :sm="12" :lg="6">
@@ -27,7 +27,22 @@
         <template #extra>
           <el-button color="#626aef" @click="gotoreg()">现在注册</el-button>
           <el-button type="primary" @click="gotolog()">已有账号，立刻登录</el-button>
-        </template>
+        
+          <el-form :model="loginForm" label-width="auto" style="max-width: 600px" class="myform">
+      
+      <el-form-item label="输入用户id进行信息查询" required>
+      <el-input v-model="loginForm.id0" 
+      maxlength="20"
+      placeholder="按注册顺序从1开始"
+      show-word-limit
+      type="text"/>
+      </el-form-item>
+      <el-form-item>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <el-button type="primary" @click="handleLogin">查询</el-button>
+      </el-form-item>
+  </el-form>
+    </template>
       </el-result>
     </el-col>
     </el-tab-pane>
@@ -35,11 +50,20 @@
     <el-tab-pane label="关注" name="third">关注</el-tab-pane>
     <el-tab-pane label="历史记录" name="fourth">历史记录</el-tab-pane>
   </el-tabs>
+  </div>
+  <!-- 已登录 -->
+  <div v-else>
+    <h2>欢迎</h2>
+        <el-list>
+          <el-list-item>账号: {{ user.account }}</el-list-item>
+          <el-list-item>账号: {{ user.email }}</el-list-item>
+        </el-list>
+        <el-button type="primary" @click="logout">登出</el-button>
+  </div>
   </template>
   
   <script lang="ts" setup>
   import { CaretBottom } from '@element-plus/icons-vue'
-  import { ref } from 'vue'
 import type { TabsPaneContext } from 'element-plus'
 
 const activeName = ref('first')
@@ -47,13 +71,39 @@ const activeName = ref('first')
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
-import {useRouter} from 'vue-router'
-const router = useRouter()
 function gotoreg(){
     router.push('/reg');
 }
 function gotolog(){
     router.push('/log');
+}
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+const user = ref(null)
+const isLoggedIn = ref(false)
+const errorMessage = ref('')
+const router = useRouter()
+const loginForm = ref({
+  id0: ''
+})
+const handleLogin = async () => {
+  errorMessage.value = ''
+  try {
+    const id1 = loginForm.value.id0
+    console.log("start")
+    const response = await axios.get('http://localhost:8080/userget',{params:{id:id1}});
+    user.value = response.data.data // 获取用户信息
+    isLoggedIn.value = true
+  } catch (error) {
+    console.error('接收数据时出错',error);
+  }
+}
+const logout = () => {
+  user.value = null
+  isLoggedIn.value = false
+  loginForm.value = { id0:'' }
+  router.push('/') // 回到首页
 }
   </script>
   

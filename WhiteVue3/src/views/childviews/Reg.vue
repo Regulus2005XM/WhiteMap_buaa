@@ -2,15 +2,22 @@
     <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
       <!-- 1 -->
       <el-form-item label="用户名" required>
-      <el-input v-model="form.name" 
+      <el-input v-model="formTrue.account" 
       maxlength="10"
       placeholder="输入用户名"
       show-word-limit
       type="text"/>
       </el-form-item>
+      <el-form-item label="邮箱" required>
+      <el-input v-model="formTrue.email" 
+      maxlength="20"
+      placeholder="输入您的邮箱"
+      show-word-limit
+      type="text"/>
+      </el-form-item>
       <!-- 2 -->
       <el-form-item label="密码" required>
-      <el-input v-model="form.password1" 
+      <el-input v-model="formTrue.password" 
       maxlength="25"
       placeholder="输入密码"
       type="password"
@@ -100,8 +107,6 @@ import { reactive,ref } from 'vue'
 import axios from 'axios'
 var star = ref(3.5);
 const form = reactive({
-  name: '',
-  password1:'',
   password2:'',
   date: '2005-1-1',
   sex: 'other',
@@ -109,6 +114,11 @@ const form = reactive({
   type: [],
   desc: '大家好，我是',
   })
+const formTrue = reactive({
+  account: '',
+  password:'',
+  email:'',
+})
 import { ElMessageBox } from 'element-plus'
 const submitReg = async () => {
   ElMessageBox.confirm(
@@ -125,13 +135,11 @@ const submitReg = async () => {
         type: 'success',
         message: '成功注册',
       })
-    
-    
   try {
-    const jsonString = JSON.stringify(form);//生成一个请求(JSON字符串)
+    const jsonString = JSON.stringify(formTrue);//生成一个请求(JSON字符串)
     console.log(jsonString);
     const response = await axios.post(//向后端地址发送请求，并接收数据
-    "http://localhost:8080/register/reg01",//地址
+    "http://localhost:8080/register",//地址
     jsonString,{headers:{'Content-Type':'application/json'}});
     //请求的格式设置
     console.log('响应:',response.data);
@@ -162,10 +170,10 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('别传啦，功能还没做呢')
+    ElMessage.error('图片上传失败')
     return false
   } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('别传啦，功能还没做呢')
+    ElMessage.error('图片文件过大')
     return false
   }
   return true
@@ -196,15 +204,15 @@ const handleDownload = (file: UploadFile) => {
 }
 </script>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
- <!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <style scoped>
 .myform {
-    background-color: white; /* 矩形背景色 */
-    color: black; /* 文字颜色 */
-    padding: 20px; /* 内边距 */
-    border-radius: 10px; /* 圆角 */
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
     max-width: 600px;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     margin: 20px;
 }
 .avatar-uploader .avatar {

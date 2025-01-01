@@ -1,4 +1,4 @@
-package com.whitemap.whitespringboot3.entities;
+package com.whitemap.whitespringboot3.entity;
 
 import com.whitemap.whitespringboot3.DB.pojo.SitePOJO;
 import javax.security.auth.Subject;

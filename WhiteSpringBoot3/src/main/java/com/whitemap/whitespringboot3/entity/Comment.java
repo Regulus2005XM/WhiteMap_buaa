@@ -1,6 +1,4 @@
-package com.whitemap.whitespringboot3.entities;
-
-import com.whitemap.whitespringboot3.DB.pojo.comments.CommentIndexPOJO;
+package com.whitemap.whitespringboot3.entity;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

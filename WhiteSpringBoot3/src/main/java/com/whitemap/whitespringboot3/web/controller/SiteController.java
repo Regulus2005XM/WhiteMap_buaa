@@ -3,7 +3,7 @@ package com.whitemap.whitespringboot3.web.controller;
 import com.whitemap.whitespringboot3.Common.SubjectType;
 import com.whitemap.whitespringboot3.service.ICommentService;
 import com.whitemap.whitespringboot3.service.ISiteService;
-import com.whitemap.whitespringboot3.DB.pojo.ResponseMessage;
+import com.whitemap.whitespringboot3.web.controller.response.ResponseMessage;
 import com.whitemap.whitespringboot3.DB.pojo.SitePOJO;
 import com.whitemap.whitespringboot3.service.ISubjectService;
 import com.whitemap.whitespringboot3.web.dto.Site.SiteDTO;

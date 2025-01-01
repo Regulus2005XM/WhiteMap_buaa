@@ -1,11 +1,9 @@
-package com.whitemap.whitespringboot3.DB.dao;
+package com.whitemap.whitespringboot3.DB.mapper;
 
 import com.whitemap.whitespringboot3.DB.pojo.comments.CommentIndexPOJO;
-import com.whitemap.whitespringboot3.web.dto.Comment.SendCommentDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Properties;
 
 @Mapper
 public interface CommentMapper {

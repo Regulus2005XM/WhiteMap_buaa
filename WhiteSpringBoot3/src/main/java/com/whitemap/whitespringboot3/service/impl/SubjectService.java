@@ -1,8 +1,9 @@
-package com.whitemap.whitespringboot3.service;
+package com.whitemap.whitespringboot3.service.impl;
 
 import com.whitemap.whitespringboot3.Common.SubjectType;
 import com.whitemap.whitespringboot3.DB.dao.CommentSubjectDAO;
 import com.whitemap.whitespringboot3.DB.pojo.comments.CommentSubjectPOJO;
+import com.whitemap.whitespringboot3.service.ISubjectService;
 import org.apache.ibatis.javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

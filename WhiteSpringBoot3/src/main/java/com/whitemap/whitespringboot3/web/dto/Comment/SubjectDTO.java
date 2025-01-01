@@ -1,8 +1,6 @@
 package com.whitemap.whitespringboot3.web.dto.Comment;
 
-import com.whitemap.whitespringboot3.entities.Comment;
-import jakarta.persistence.Column;
-import org.hibernate.annotations.CreationTimestamp;
+import com.whitemap.whitespringboot3.entity.Comment;
 
 import java.sql.Timestamp;
 import java.util.List;

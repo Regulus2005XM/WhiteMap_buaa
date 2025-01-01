@@ -6,7 +6,7 @@
     <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
       
       <el-form-item label="用户名" required>
-      <el-input v-model="form.name" 
+      <el-input v-model="form.account" 
       maxlength="10"
       placeholder="输入用户名"
       show-word-limit
@@ -14,7 +14,7 @@
       </el-form-item>
 
       <el-form-item label="密码" required>
-      <el-input v-model="form.password1"
+      <el-input v-model="form.password"
       maxlength="25"
       placeholder="输入密码"
       type="password"
@@ -23,7 +23,7 @@
       </el-form-item>
       <el-form-item>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <el-button type="primary" @click="onSubmit">登录</el-button>
+        <el-button type="primary" @click="submitReg">登录</el-button>
         <el-button type="info" @click="gotoreg()">注册新账号</el-button>
       </el-form-item>
   </el-form>
@@ -31,27 +31,55 @@
   </template>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
-  <script lang="ts" setup>
-  import { reactive,ref } from 'vue'
-  var star = ref(3.5);
-  // do not use same name with ref
-  const form = reactive({
-    name: '',
-    password1:'',
-    password2:'',
-    region: '',
-    date1: '',
-    date2: '',
-    delivery: false,
-    type: [],
-    resource: '',
-    desc: '大家好，我是',
-  })
-  
-  const onSubmit = () => {
-    console.log('submit!')
+<script lang="ts" setup>
+import { reactive,ref } from 'vue'
+import axios from 'axios'
+var star = ref(3.5);
+const form = reactive({
+  account: '',
+  password:'',
+})
+import { ElMessage } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
+const submitReg = async () => {
+  ElMessageBox.confirm(
+    '请确定信息填写无误',
+    '是否登录',
+    {
+      confirmButtonText: '登录',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(async () => {
+      ElMessage({
+        type: 'success',
+        message: '成功登录',
+      })
+  try {
+    const jsonString = JSON.stringify(form);//生成一个请求(JSON字符串)
+    console.log(jsonString);
+    const response = await axios.post(//向后端地址发送请求，并接收数据
+    "http://localhost:8080/login",//地址
+    jsonString,{headers:{'Content-Type':'application/json'}});
+    //请求的格式设置
+    console.log('响应:',response.data);
+    if(response.data.message=='error'){
+
+    }else{
+      
+    }
+  }catch(error){
+    console.error('发送数据时出错',error);
   }
-  import { ElMessage } from 'element-plus'
+})
+  .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '取消登录',
+      })
+    })
+}
 import { Plus } from '@element-plus/icons-vue'
 
 import type { UploadProps } from 'element-plus'

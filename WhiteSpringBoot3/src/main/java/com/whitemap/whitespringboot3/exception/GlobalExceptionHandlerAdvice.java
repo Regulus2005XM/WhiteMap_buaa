@@ -1,6 +1,6 @@
 package com.whitemap.whitespringboot3.exception;
 
-import com.whitemap.whitespringboot3.DB.pojo.ResponseMessage;
+import com.whitemap.whitespringboot3.web.controller.response.ResponseMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;

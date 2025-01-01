@@ -1,8 +1,9 @@
-package com.whitemap.whitespringboot3.service;
+package com.whitemap.whitespringboot3.service.impl;
 
 import com.whitemap.whitespringboot3.DB.dao.SiteDAO;
-import com.whitemap.whitespringboot3.DB.dao.SiteMapper;
+import com.whitemap.whitespringboot3.DB.mapper.SiteMapper;
 import com.whitemap.whitespringboot3.DB.pojo.SitePOJO;
+import com.whitemap.whitespringboot3.service.ISiteService;
 import com.whitemap.whitespringboot3.web.dto.Site.SiteDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.whitemap.whitespringboot3.service;
 
 import com.whitemap.whitespringboot3.Common.SubjectType;
-import com.whitemap.whitespringboot3.entities.Comment;
+import com.whitemap.whitespringboot3.entity.Comment;
 import com.whitemap.whitespringboot3.web.dto.Comment.SendCommentDTO;
 
 public interface ICommentService {
