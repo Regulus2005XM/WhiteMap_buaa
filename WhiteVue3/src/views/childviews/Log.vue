@@ -1,9 +1,14 @@
+<!-- 登录页面 -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- —————————————————————————————————页面展示———————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <template>
-    <van-notice-bar
-  left-icon="volume-o"
-  text="目前账号不能绑定手机号等，忘记密码请联系管理员进行找回，希望大家正常使用，不要恶意攻击本网站:D"
-/>
-    <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
+  <!-- 滚动提示信息 -->
+  <van-notice-bar left-icon="volume-o" 
+  text="目前账号不能绑定手机号等，忘记密码请联系管理员进行找回，
+  希望大家正常使用，不要恶意攻击本网站:D"/>
+  <!-- 登录表单 -->
+  <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
       
       <el-form-item label="用户名" required>
       <el-input v-model="form.account" 
@@ -29,7 +34,9 @@
   </el-form>
   
   </template>
+
 <!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- —————————————————————————————————代码逻辑———————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <script lang="ts" setup>
 import { reactive,ref } from 'vue'
@@ -129,16 +136,17 @@ const handleDownload = (file: UploadFile) => {
 }
 </script>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- —————————————————————————————————格式设置———————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <style scoped>
 .myform {
-    background-color: white; /* 矩形背景色 */
-    color: black; /* 文字颜色 */
-    padding: 20px; /* 内边距 */
-    border-radius: 10px; /* 圆角 */
-    max-width: 600px;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* 阴影效果 */
-    margin: 20px;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px;
 }
 .avatar-uploader .avatar {
   width: 178px;
@@ -167,3 +175,4 @@ const handleDownload = (file: UploadFile) => {
   border-top: 2px dashed var(--el-border-color);
 }
 </style>
+
