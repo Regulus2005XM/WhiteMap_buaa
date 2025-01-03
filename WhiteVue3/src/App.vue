@@ -23,6 +23,11 @@
   <main>
   <div id="mainPart"><RouterView /></div>
   </main>
+  <footer class="footer">
+    <div class="container">
+      <p><a href="https://beian.miit.gov.cn">京ICP备2024097135号-1</a></p>
+    </div>
+  </footer>
   </div>
 </template>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
@@ -64,5 +69,13 @@ a {
     display: flex;
     align-items: center; /* 垂直居中对齐 */
     height: 100%; /* 确保链接的高度与菜单项一致 */
+}
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 </style>

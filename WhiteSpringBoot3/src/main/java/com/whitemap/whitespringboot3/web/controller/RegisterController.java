@@ -2,8 +2,10 @@ package com.whitemap.whitespringboot3.web.controller;
 
 import com.whitemap.whitespringboot3.DB.pojo.UserPOJO;
 import com.whitemap.whitespringboot3.service.IUserService;
+import com.whitemap.whitespringboot3.util.JWTUtil;
 import com.whitemap.whitespringboot3.web.controller.response.ResponseMessage;
 import com.whitemap.whitespringboot3.util.UserInfoValidator;
+import com.whitemap.whitespringboot3.web.dto.User.RegisterBackDTO;
 import com.whitemap.whitespringboot3.web.dto.User.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,7 @@ public class RegisterController {
     IUserService userService;
 
     @PostMapping
-    public ResponseMessage<UserPOJO> register(@RequestBody RegisterDTO dto){
+    public ResponseMessage<RegisterBackDTO> register(@RequestBody RegisterDTO dto){
         //格式校验
         if(!UserInfoValidator.isValidAccount(dto.getAccount()))
             return ResponseMessage.info(null,"Invalid Account", HttpStatus.BAD_REQUEST);
@@ -32,6 +34,8 @@ public class RegisterController {
             return ResponseMessage.info(null,"Account already exists", HttpStatus.CONFLICT);
         //添加用户
         UserPOJO user = userService.add(dto);
-        return ResponseMessage.success(user);
+        //通过
+        RegisterBackDTO back = new RegisterBackDTO(JWTUtil.generateToken(user.getId().toString()),user.getId().toString());
+        return ResponseMessage.success(back);
     }
 }

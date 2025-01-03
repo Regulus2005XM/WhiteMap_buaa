@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
-@CrossOrigin(origins = "http://localhost:5173") //忽略跨域
+@CrossOrigin //忽略跨域
 @RequestMapping("/userupdate") //公共路径
 @RestController
 public class UserUpdateController {

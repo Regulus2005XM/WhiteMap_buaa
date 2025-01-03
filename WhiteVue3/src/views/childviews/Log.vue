@@ -2,138 +2,94 @@
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- —————————————————————————————————页面展示———————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
+
 <template>
+
   <!-- 滚动提示信息 -->
   <van-notice-bar left-icon="volume-o" 
   text="目前账号不能绑定手机号等，忘记密码请联系管理员进行找回，
   希望大家正常使用，不要恶意攻击本网站:D"/>
+
   <!-- 登录表单 -->
   <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
-      
-      <el-form-item label="用户名" required>
-      <el-input v-model="form.account" 
-      maxlength="10"
-      placeholder="输入用户名"
-      show-word-limit
-      type="text"/>
-      </el-form-item>
+  
+    <el-form-item label="用户名" required>
+    <el-input v-model="form.account" maxlength="20" placeholder="请输入账号名"
+    show-word-limit type="text"/>
+    </el-form-item>
 
-      <el-form-item label="密码" required>
-      <el-input v-model="form.password"
-      maxlength="25"
-      placeholder="输入密码"
-      type="password"
-      show-password
-      show-word-limit/>
-      </el-form-item>
-      <el-form-item>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <el-button type="primary" @click="submitReg">登录</el-button>
-        <el-button type="info" @click="gotoreg()">注册新账号</el-button>
-      </el-form-item>
+    <el-form-item label="密码" required>
+    <el-input v-model="form.password" maxlength="25" placeholder="请输入密码"
+    type="password" show-password show-word-limit/>
+    </el-form-item>
+  
+    <el-form-item>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <el-button type="primary" @click="login">登录</el-button>
+    <el-button type="info" @click="gotoreg()">注册新账号</el-button>
+    </el-form-item>
+
   </el-form>
   
-  </template>
+</template>
 
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- —————————————————————————————————代码逻辑———————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
+
 <script lang="ts" setup>
-import { reactive,ref } from 'vue'
+
+// 导入组件
 import axios from 'axios'
-var star = ref(3.5);
+import { reactive,ref } from 'vue'
+import {useRouter} from 'vue-router'
+import { ElMessage } from 'element-plus'
+
+// 跳转到注册页面
+const router = useRouter()
+function gotoreg() {
+  router.push('/reg');
+}
+// 跳转到用户页面
+function gotoUser() {
+  router.push('/user');
+}
+
+// 提交登录表单
 const form = reactive({
   account: '',
-  password:'',
+  password: ''
 })
-import { ElMessage } from 'element-plus'
-import { ElMessageBox } from 'element-plus'
-const submitReg = async () => {
-  ElMessageBox.confirm(
-    '请确定信息填写无误',
-    '是否登录',
-    {
-      confirmButtonText: '登录',
-      cancelButtonText: '取消',
-      type: 'warning',
-    }
-  )
-    .then(async () => {
+const login = async () => {
+  try {
+    const jsonString = JSON.stringify(form);
+    console.log(jsonString);
+    const response = await axios.post(
+      "http://localhost:8080/login",
+      jsonString,
+      {headers:{'Content-Type':'application/json'}});
+    console.log('接收数据:',response.data);
+
+    if(response.data.status=='200'){
       ElMessage({
         type: 'success',
         message: '成功登录',
       })
-  try {
-    const jsonString = JSON.stringify(form);//生成一个请求(JSON字符串)
-    console.log(jsonString);
-    const response = await axios.post(//向后端地址发送请求，并接收数据
-    "http://localhost:8080/login",//地址
-    jsonString,{headers:{'Content-Type':'application/json'}});
-    //请求的格式设置
-    console.log('响应:',response.data);
-    if(response.data.message=='error'){
-
+      const jwtToken = response.data.message; // 确保正确访问 token
+      localStorage.setItem('jwt', jwtToken); // 保存 JWT
+      const isLogin = "true";
+      localStorage.setItem('isLog',isLogin);
+      gotoUser();
     }else{
-      
+      ElMessage({
+        type: 'warning',
+        message: response.data.message,
+      })
     }
   }catch(error){
     console.error('发送数据时出错',error);
   }
-})
-  .catch(() => {
-      ElMessage({
-        type: 'info',
-        message: '取消登录',
-      })
-    })
-}
-import { Plus } from '@element-plus/icons-vue'
-
-import type { UploadProps } from 'element-plus'
-
-const imageUrl = ref('')
-
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
-  response,
-  uploadFile
-) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw!)
 }
 
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('别传啦，功能还没做呢')
-    return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('别传啦，功能还没做呢')
-    return false
-  }
-  return true
-}
-import { Delete, Download, ZoomIn } from '@element-plus/icons-vue'
-
-import type { UploadFile } from 'element-plus'
-import {useRouter} from 'vue-router'
-const router = useRouter()
-function gotoreg(){
-    router.push('/reg');
-}
-const dialogImageUrl = ref('')
-const dialogVisible = ref(false)
-const disabled = ref(false)
-
-const handleRemove = (file: UploadFile) => {
-  console.log(file)
-}
-
-const handlePictureCardPreview = (file: UploadFile) => {
-  dialogImageUrl.value = file.url!
-  dialogVisible.value = true
-}
-
-const handleDownload = (file: UploadFile) => {
-  console.log(file)
-}
 </script>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- —————————————————————————————————格式设置———————————————————————————————— -->
