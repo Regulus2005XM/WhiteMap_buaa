@@ -2,69 +2,52 @@
 import { onMounted } from 'vue'
 import { ref } from 'vue'
 import { UserFilled } from '@element-plus/icons-vue'
+
+import axios from 'axios'
+import {useRouter} from 'vue-router'
+
+import type { TagProps } from 'element-plus'
+
+const router = useRouter()
+onMounted(()=>{
+  getSiteInfo();
+})
 interface RestaurantItem {
   value: string
   link: string
 }
-import {useRouter} from 'vue-router'
-const router = useRouter()
 function gotocreate(){
     router.push('/pub');
 }
-var Ties = [{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"小明",
-  title:"羽毛球场求搭子",
-  star:"4.5",
-  context:"有没有人来打羽毛球啊，求求"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-},{
-  name:"匿名用户",
-  title:"东区食堂新增美食",
-  star:"3.5",
-  context:"好吃，爱吃"
-}]
-var starvalue = ref(4.5)
-const state1 = ref('')
-const state2 = ref('')
+
+const form = ({
+  x:'',
+  y:'',
+  range:'',
+})
+let Ties = ref({
+  data:[
+    {siteName:'加载失败',x:'0',y:'0'}
+  ]
+});
+const getSiteInfo = async () => {
+  try {
+    form.y = "116.355313";
+    form.x = "39.986771";
+    form.range = "30.0"
+    const jsonString = JSON.stringify(form);
+    console.log(jsonString);
+    const response = await axios.post(
+      "http://localhost:8080/site/info",
+      jsonString,
+      {headers:{'Content-Type':'application/json'}});
+    console.log('接收数据:',response.data);
+    Ties.value = response.data;
+  }catch(error){
+    console.error('发送数据时出错',error);
+  }
+}
+
 const images = ref([
     '/pict/1.jpg',
     '/pict/2.jpg',
@@ -76,7 +59,6 @@ const querySearch = (queryString: string, cb: any) => {
   const results = queryString
     ? restaurants.value.filter(createFilter(queryString))
     : restaurants.value
-  // call callback function to return suggestions
   cb(results)
 }
 const createFilter = (queryString: string) => {
@@ -104,9 +86,10 @@ const handleSelect = (item: RestaurantItem) => {
 onMounted(() => {
   restaurants.value = loadAll()
 })
-
-import type { TagProps } from 'element-plus'
-
+const common = ref({
+  title:'新地点',
+  star:'5'
+})
 interface TagsItem {
   name: string
   type: TagProps['type']
@@ -139,26 +122,31 @@ const tags = ref<TagsItem[]>([
   <div class="create-button" @click="gotocreate()">+</div>
   <div id="sqs">
   
-<span v-for="(Tie, index) in Ties" :key="index" class="Mycard">
+<span v-for="(Tie, siteName) in Ties.data" :key="siteName" class="Mycard">
+  <router-link :to="'/site/' + Tie.siteName">
   <el-card>
+    
+    
     <template #header id="mycard">
       <div class="card-header">
-      <span><el-avatar :icon="UserFilled" />{{Tie.name}}<h3>{{ Tie.title }}</h3>
+      <span><el-avatar :icon="UserFilled" /><h3>{{Tie.siteName}}</h3>
       <div class="flex gap-2">
     <el-tag v-for="tag in tags" :key="tag.name" closable :type="tag.type" round>
     {{ tag.name }}
     </el-tag></div></span></div>
-    </template><p>{{ Tie.context }}</p>
-    <template #footer>校内·东区食堂
+    </template><p>经度:{{ Tie.x }}<br/>纬度:{{ Tie.y }}</p>
+    <template #footer>
     <el-rate
-    v-model="Tie.star"
+    v-model="common.star"
     disabled
     show-score
     text-color="#ff9900"
-    score-template="{value} 分"
+    score-template="{value}分"
   />
     </template>
+  
   </el-card>
+</router-link>
 </span>
 </div>
 <el-backtop :right="100" :bottom="100" />

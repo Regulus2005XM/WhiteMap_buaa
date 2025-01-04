@@ -172,14 +172,14 @@ const submitReg = async () => {
     localStorage.setItem('jwt', jwtToken); // 保存 JWT
     const isLogin = "true";
     localStorage.setItem('isLog',isLogin);
-    const userId = response.data.data.id;
-    extraForm.id = userId;
+    // const userId = response.data.data.id;X 
+    // extraForm.id = userId;
 
-    const jsonString2 = JSON.stringify(extraForm);//生成一个请求(JSON字符串)
-    console.log(jsonString2);
-    const response2 = await axios.post(//向后端地址发送请求，并接收数据
-    "http://localhost:8080/userupdate",//地址
-    jsonString2,{headers:{'Content-Type':'application/json'}});
+    // const jsonString2 = JSON.stringify(extraForm);//生成一个请求(JSON字符串)
+    // console.log(jsonString2);
+    // const response2 = await axios.post(//向后端地址发送请求，并接收数据
+    // "http://localhost:8080/userupdate",//地址
+    // jsonString2,{headers:{'Content-Type':'application/json'}});
     gotoUser();
   }catch(error){
     console.error('发送数据时出错',error);

@@ -32,6 +32,11 @@ const router = createRouter({
       path: '/log',
       name: 'log',
       component: () => import('../views/childviews/Log.vue')
+    },
+    {
+      path: '/site/:siteName',
+      name:'site',
+      component: () => import('../views/childviews/SiteDetail.vue')
     }
   ]
 })

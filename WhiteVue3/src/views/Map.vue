@@ -24,9 +24,12 @@
       :enableTraffic="mapSetting.enableTraffic"
     >
       <BMarker :visible="value1" :position="{ lng: 116.355313,lat: 39.986771 }" icon="red1" />
-      <BLabel :visible="value2"  :content="bz":position="{ lng: 116.355313,lat: 39.986771 }"
+
+      <div v-for="(Tie, siteName) in Ties.data" :key="siteName">
+      <BLabel :visible="value2"  :content="Tie.siteName":position="{ lng: parseFloat(Tie.y),lat: parseFloat(Tie.x) }"
       :style="{color: '#fff', backgroundColor: '#f90',border: 'none',
         borderRadius: '3px',padding: '5px 10px',fontSize: '16px'}"/>
+      </div>
       <BLocation />
     </BMap>
     </div>
@@ -119,7 +122,41 @@ const handleSelect = (item: RestaurantItem) => {
 
 onMounted(() => {
   restaurants.value = loadAll()
+  getSiteInfo();
 })
+
+
+// 查询接口
+
+import axios from 'axios'
+const form = ({
+  x:'',
+  y:'',
+  range:'',
+})
+let Ties = ref({
+  data:[
+    {siteName:'加载失败',x:'0',y:'0'}
+  ]
+});
+const getSiteInfo = async () => {
+  try {
+    form.y = "116.355313";
+    form.x = "39.986771";
+    form.range = "30.0"
+    const jsonString = JSON.stringify(form);
+    console.log(jsonString);
+    const response = await axios.post(
+      "http://localhost:8080/site/info",
+      jsonString,
+      {headers:{'Content-Type':'application/json'}});
+    console.log('接收数据:',response.data);
+    Ties.value = response.data;
+  }catch(error){
+    console.error('发送数据时出错',error);
+  }
+}
+
 </script>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->

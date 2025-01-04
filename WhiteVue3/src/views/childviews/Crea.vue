@@ -1,39 +1,11 @@
 <template>
     <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
-      <el-form-item label="标题">
-        <el-input v-model="form.name" />
+      <el-form-item label="地点名">
+        <el-input v-model="form.siteName" />
       </el-form-item>
-      <el-form-item label="帖子类型">
-        <el-select v-model="form.region" placeholder="填入你的贴子类型">
-          <el-option label="新建一个地点" value="shanghai" />
-          <el-option label="评价已有地点" value="beijing" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="活动时间">
-        <el-col :span="11">
-          <el-date-picker
-            v-model="form.date1"
-            type="date"
-            placeholder="选择日期"
-            style="width: 100%"
-          />
-        </el-col>
-        <el-col :span="4" class="text-center">
-          <span class="text-gray-500">-</span>
-        </el-col>
-        <el-col :span="11">
-          <el-time-picker
-            v-model="form.date2"
-            placeholder="选择时间"
-            style="width: 100%"
-          />
-        </el-col>
-      </el-form-item>
-      <el-form-item label="不公开">
-        <el-switch v-model="form.delivery" />
-      </el-form-item>
+
       <el-form-item label="发布到板块">
-        <el-checkbox-group v-model="form.type">
+        <el-checkbox-group v-model="otherForm.type">
           <el-checkbox value="Online activities" name="type">
             生活板块
           </el-checkbox>
@@ -48,23 +20,22 @@
           </el-checkbox>
         </el-checkbox-group>
       </el-form-item>
+
       <el-form-item label="校区">
-        <el-radio-group v-model="form.resource">
+        <el-radio-group v-model="otherForm.xiaoqu">
           <el-radio value="Sponsor">学院路校区</el-radio>
           <el-radio value="Venue">沙河校区</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="帖子内容">
-        <el-input v-model="form.desc" type="textarea" />
+
+      <el-form-item label="具体描述">
+        <el-input v-model="jiexi.inputContent" type="textarea" />
       </el-form-item>
-      <el-form-item label="给地点打分">
-        <el-rate v-model="star" allow-half />
-        </el-form-item>
         
       <el-form-item>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <el-button type="primary" @click="onSubmit">发布</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="submitForm">发布</el-button>
+        <el-button type="danger" @click="gotoMap">取消</el-button>
       </el-form-item>
   </el-form>
   <el-form class="myform">
@@ -105,75 +76,160 @@
   </el-dialog>
     </el-form-item>
   </el-form>
+
+  <el-form :model="form" label-width="auto" style="max-width: 600px" class="myform">
+  <div class="state" v-if="!isLoading && !isError">
+      <span>
+        城市 - {{ location.address?.province }}-{{ location.address?.city }}-{{ location.address?.district }}-{{
+          location.address?.street
+        }}
+      </span><br></br>
+      <span>纬度 - {{ location.point?.lat }}</span><br></br>
+      <span>经度 - {{ location.point?.lng }}</span><br></br>
+  
+      <span>定位精度 - {{ location.accuracy }}m</span>
+    </div>
+    <div class="state" v-else-if="isError">出错了，{{ status }}</div>
+    <div class="state" v-else>定位中...</div>
+    <el-button type="warning" v-if="!isLoading" @click="get">重新获取</el-button>
+  </el-form>
+
+    <BMap style="max-width: 600px" enableScrollWheelZoom ref="map" @initd="get" :center="location.point || undefined">
+      <template v-if="!isLoading">
+        <BMarker :position="location.point"></BMarker>
+        <BCircle
+          strokeStyle="solid"
+          strokeColor="#0099ff"
+          :strokeOpacity="0.8"
+          fillColor="#0099ff"
+          :fillOpacity="0.5"
+          :center="location.point"
+          :radius="location.accuracy"
+        />
+      </template>
+    </BMap>
+
   </template>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
 <!-- ———————————————————————————————————————————————————————————————————————— -->
-  <script lang="ts" setup>
-  import { reactive,ref } from 'vue'
-  var star = ref(3.5);
-  // do not use same name with ref
-  const form = reactive({
-    name: '',
-    region: '',
-    date1: '',
-    date2: '',
-    delivery: false,
-    type: [],
-    resource: '',
-    desc: '向大家推荐',
-  })
-  
-  const onSubmit = () => {
-    console.log('submit!')
-  }
-  import { ElMessage } from 'element-plus'
+<script lang="ts" setup>
+
+import { reactive,ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
-
-import type { UploadProps } from 'element-plus'
-
-const imageUrl = ref('')
-
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
-  response,
-  uploadFile
-) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-}
-
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('别传啦，功能还没做呢')
-    return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('别传啦，功能还没做呢')
-    return false
-  }
-  return true
-}
+import {useRouter} from 'vue-router'
 import { Delete, Download, ZoomIn } from '@element-plus/icons-vue'
-
 import type { UploadFile } from 'element-plus'
+
+import axios from 'axios'
+  import { useBrowserLocation } from 'vue3-baidu-map-gl'
+  const map = ref()
+  const { get, location, isLoading, isError, status } = useBrowserLocation(null, () => {
+    map.value.resetCenter()
+  })
+const router = useRouter();
+function gotoMap() {
+  router.push('/user');
+}
+const otherForm = reactive({
+  type:'',
+  xiaoqu:'',
+})
+const form = reactive({
+  x:'',
+  y:'',
+  siteName:'',
+  jwt:''
+})
+const jiexi = reactive({
+  inputContent:''
+})
 
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const disabled = ref(false)
+function gotoSq() {
+  router.push('/sq');
+}
+const submitForm = async () => {
+  try {
+    form.x = location.value.point.lat.toString();
+    form.y = location.value.point.lng.toString();
+    form.jwt = localStorage.getItem('jwt').valueOf();
+    const jsonString = JSON.stringify(form);
+    console.log(jsonString);
+    const response = await axios.post(
+      "http://localhost:8080/site",
+      jsonString,
+      {headers:{'Content-Type':'application/json'}});
+    console.log('接收数据:',response.data);
+    gotoSq();
+  }catch(error){
+    console.error('发送数据时出错',error);
+  }
+}
 
 const handleRemove = (file: UploadFile) => {
   console.log(file)
 }
-
 const handlePictureCardPreview = (file: UploadFile) => {
   dialogImageUrl.value = file.url!
   dialogVisible.value = true
 }
-
 const handleDownload = (file: UploadFile) => {
   console.log(file)
 }
+  import { BMarker } from 'vue3-baidu-map-gl';
+
 </script>
 <!-- ———————————————————————————————————————————————————————————————————————— -->
- <!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <style scoped>
+#bott{
+  width : 60vw;
+}
+.footer {
+    background-color: white; /* 矩形背景色 */
+    color: black; /* 文字颜色 */
+    padding: 20px; /* 内边距 */
+    border-radius: 10px; /* 圆角 */
+    text-align: center; /* 文本居中 */
+    width: 100%; /* 宽度设置为100% */
+    position: fixed; /* 固定定位 */
+    bottom: 0; /* 持续在底部 */
+    left: 0; /* 左对齐 */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin:30px;
+}
+.search-input {
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    width:75%;
+}
+.search-button {
+  border-radius: 25px;
+    background-color: #f1441d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    right:0;
+    transition: background-color 0.3s;
+    width:150px;
+}
+.search-button:hover {
+    background-color: #f1441d;
+}
 .myform {
     background-color: white; /* 矩形背景色 */
     color: black; /* 文字颜色 */

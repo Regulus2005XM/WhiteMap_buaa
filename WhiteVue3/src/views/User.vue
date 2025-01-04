@@ -4,45 +4,28 @@
  <!-- 引入Font Awesome -->
  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
  </link>
-
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- —————————————————————————————————页面展示———————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
 <template>
-    <!-- <el-badge :value="0" class="item" type="warning">
-      <el-button>系统通知</el-button>
-    </el-badge>
-    <el-badge :value="0" class="item" color="green">
-      <el-button>关注的人</el-button>
-    </el-badge>
-    <el-badge :value="0" class="item">
-      <el-button>评论</el-button>
-    </el-badge>
-    <el-badge :value="0" class="item">
-      <el-button>回复</el-button>
-    </el-badge>
-    <el-badge :value="0" class="item" type="primary">
-      <el-button>@我</el-button>
-    </el-badge> -->
-    <!-- 未登录状态 -->
+<body>
+  <!-- 未登录状态 -->
+  <div v-if="isLoggedIn=='false'">
 
-    <div v-if="isLoggedIn=='false'">
+    <el-col :sm="12" :lg="6">
+      <el-result icon="error"
+      title="登录以查看更多信息"sub-title="注册暂时无需手机号验证等">
 
-        <el-col :sm="12" :lg="6">
-      <el-result
-        icon="error"
-        title="登录以查看更多信息"
-        sub-title="注册暂时无需手机号验证等"
-      >
-        <template #extra>
-          <el-button color="#626aef" @click="gotoreg()">现在注册</el-button>
-          <el-button type="primary" @click="gotolog()">已有账号，立刻登录</el-button>
-          
-    </template>
+      <template #extra>
+        <el-button color="#626aef" @click="gotoreg()">现在注册</el-button>
+        <el-button type="primary" @click="gotolog()">已有账号，立刻登录</el-button> 
+      </template>
       </el-result>
     </el-col>
   </div>
-  <!-- 已登录 -->
-<div v-else>
 
-<body>
+  <!-- 已登录 -->
+  <div v-else>
     <div class="container">
         <div class="info-card">
             <div class="profile-section">
@@ -76,7 +59,7 @@
             </div>
 
             <div class="description">
-                <h3><i class="fa fa-file-text"></i> 个人简介</h3>
+                <h3><i class="fa fa-file-text"></i>个人简介</h3>
                 <p class="lead"></p>
                 <ul class="list-group">
                     <li class="list-group-item"><i class="fa fa-check text-success"></i>{{ params.data.discription }}</li>
@@ -84,46 +67,48 @@
                 </ul>
             </div>
 
-
             <h2 class="welcome-title">欢迎回来！</h2>
-  <el-button type="primary" class="logout-button" @click="logout">登出</el-button>
-
-
+            <el-button type="primary" class="logout-button" 
+            @click="logout">登出</el-button>
         </div>
     </div>
-</body>
-</div>
+    
+  </div>
+  </body>
 
 </template>
+
+<!-- ———————————————————————————————————————————————————————————————————————— -->
+<!-- —————————————————————————————————代码逻辑———————————————————————————————— -->
+<!-- ———————————————————————————————————————————————————————————————————————— -->
   
 <script lang="ts" setup>
-import { CaretBottom } from '@element-plus/icons-vue'
-import type { TabsPaneContext } from 'element-plus'
 
-const activeName = ref('first')
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event)
-}
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router';
+import axios from 'axios'
+
+const user = ref(null);
+const isLoggedIn = ref("false");
+const route = useRoute();
+const router = useRouter();
+let params = ref("aaa");
+
 function gotoreg(){
     router.push('/reg');
 }
 function gotolog(){
     router.push('/log');
 }
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
-const user = ref(null)
-const isLoggedIn = ref("false");
-import { useRoute } from 'vue-router';
-    const route = useRoute();
-let params = ref("aaa");
+const logout = () => {
+  params.value = "had_logout"
+  isLoggedIn.value = 'false'
+}
 
-// 页面加载时执行
 onMounted(()=>{
   getJwts();
 })
-
 const getJwts = async () => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
@@ -132,23 +117,12 @@ const getJwts = async () => {
       "http://localhost:8080/userinfo",
       jwt0,
       {headers:{'Content-Type':'application/json'}});
-      
-    params.value = response.data; // 将 jwt 值赋给 params
+    params.value = response.data;
     console.log(params.value);
     isLoggedIn.value = localStorage.getItem('isLog').valueOf();
   } else {
     params.value = "未获取到 JWT";
   }
-};
-const errorMessage = ref('')
-const router = useRouter()
-const loginForm = ref({
-  id0: ''
-})
-const logout = () => {
-  params.value = "had_logout"
-  isLoggedIn.value = 'false'
-  loginForm.value = { id0:'' }
 }
 </script>
 
@@ -195,8 +169,6 @@ const logout = () => {
 .el-list-item strong {
   color: #333;
 }
-
-
 body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding-top: 50px;
